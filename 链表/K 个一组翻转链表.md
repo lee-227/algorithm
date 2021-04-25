@@ -1,0 +1,53 @@
+## [K 个一组翻转链表](https://leetcode-cn.com/problems/reverse-nodes-in-k-group/)
+
+1. 递归 时间复杂度o(2k+n) 空间复杂度o(n)
+```js
+var reverseKGroup = function (head, k) {
+    let cur = pre = head
+    for (let i = 0; i < k; i++) {
+        if (!cur) return head
+        cur = cur.next
+    }
+    let temp = null
+    for (let i = 0; i < k; i++) {
+        let second = pre.next
+        pre.next = temp
+        temp = pre
+        pre = second
+    }
+    head.next = reverseKGroup(cur,k)
+    return temp
+};
+```
+
+2. 迭代法 时间复杂度o(k+n*k) 空间复杂度o(1)
+```js
+var reverseKGroup = function (head, k) {
+    let pre = new ListNode(-1)
+    pre.next = head
+    let cur = pre
+    function hasKNode() {
+        let node = cur
+        for (let i = 0; i < k; i++) {
+            node = node.next
+            if (!node) return false
+        }
+        return true
+    }
+    while (hasKNode()) {        
+        let head = cur.next
+        let end = cur.next.next
+        let temp = cur.next
+        for (let i = 0; i < k - 1; i++) {
+            let next = end.next
+            end.next = temp
+            temp = end
+            end = next
+        }
+        head.next = end
+        cur.next = temp
+        cur = head
+    }
+    return pre.next
+};
+```
