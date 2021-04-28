@@ -1,0 +1,34 @@
+## [环形链表 II](https://leetcode-cn.com/problems/linked-list-cycle-ii/)
+
+1. Set 时间复杂度o(n) 空间复杂度o(n)
+```js
+var detectCycle = function (head) {
+    let set = new Set()
+    while (head) {
+        if (set.has(head)) return head
+        else set.add(head)
+        head = head.next
+    }
+    return null
+};
+```
+
+2. 双指针 时间复杂度o(n) 空间复杂度o(1)
+```js
+var detectCycle = function (head) {
+    let slow = fast = head
+    while (fast && fast.next) {
+        slow = slow.next
+        fast = fast.next.next
+        if (slow == fast) {
+            slow = head
+            while (slow !== fast) {
+                slow = slow.next
+                fast = fast.next
+            }
+            return fast
+        }
+    }
+    return null
+};
+```
