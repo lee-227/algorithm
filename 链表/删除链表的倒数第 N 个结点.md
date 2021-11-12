@@ -1,0 +1,40 @@
+## [删除链表的倒数第 N 个结点](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/)
+
+1. 时间复杂度o(n) 空间复杂度o(n)
+```js
+var removeNthFromEnd = function (head, n) {
+  if (!head.next && n === 1) return null
+  let arr = []
+  let h = head
+  while (h) {
+    arr.push(h)
+    h = h.next
+  }
+  let len = arr.length
+  if (len === n) {
+    arr[0].next = null
+    return arr[1]
+  }
+  arr[len - n - 1].next = arr[len - n].next
+  return arr[0]
+};
+```
+
+2. 时间复杂度o(n) 空间复杂度o(1)
+```js
+var removeNthFromEnd = function (head, n) {
+  let dummaryNode = new ListNode(-1)
+  dummaryNode.next = head
+  let p = dummaryNode
+  let q = dummaryNode
+  for (let i = 0; i <= n; i++) {
+    q = q.next
+  }
+  while (q) {
+    q = q.next
+    p = p.next
+  }
+  p.next = p.next.next
+  return dummaryNode.next
+};
+```
