@@ -1,4 +1,4 @@
-## [26. 树的子结构](https://leetcode.cn/problems/shu-de-zi-jie-gou-lcof/)
+## [剑指 Offer 26. 树的子结构](https://leetcode.cn/problems/shu-de-zi-jie-gou-lcof/)
 
 1. 递归 时间复杂度o(MN) 空间复杂度o(M)
 ```ts
